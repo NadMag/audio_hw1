@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{csquotes}
+\usepackage{mymacros}
+\usepackage{algorithm} 
+\usepackage{algpseudocode}
+
+\usepackage[shortlabels]{enumitem}
+\usepackage[noabbrev, capitalise]{cleveref}
+
+\theoremstyle{plain}% default
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{cor}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem*{definition*}{Definition}
+\newtheorem{exmp}{Example}[section]
+\newtheorem{xca}[exmp]{Exercise}
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ top=20mm,
+ bottom=25mm,
+ left=25mm,
+ right=25mm,
+ }
+
+\newcommand{\firststudentid}{209579044}
+\newcommand{\secondstudentid}{318635646}
+
+ \newcommand{\handout}[5]{
+  \noindent
+  \begin{center}
+  \framebox{
+    \vbox{
+      \hbox to 5.78in { {Advanced Topics in Audio Processing using Deep Learning} \hfill #2 }
+      \vspace{4mm}
+      \hbox to 5.78in { {\Large \hfill #5  \hfill} }
+      \vspace{2mm}
+      \hbox to 5.78in { {\em #3 \hfill #4} }
+    }
+  }
+  \end{center}
+  \vspace*{4mm}
+}
+
+\newcommand{\lecture}[4]{\handout{#1}{#2}{Submitted By: #3}{#4}{Home Assingment #1}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Assignment \#4}
+\lhead{Advanced Topics in Audio Processing using Deep Learning}
+\rfoot{Page \thepage \hspace{1pt} of \pageref{LastPage}}
+\renewcommand{\footrulewidth}{1pt}
+ 
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1.25}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
+\begin{document}
+\lecture{\#4}{Winter 2024}{Yarden Frenkel (\firststudentid), Nadav Magar (\secondstudentid)}{}
+
+\section{Continuous Signals}
+\subsection{Fourier Transform}
+\input{continous.tex}
+\newpage
+
+\input{discrete.tex}
+\newpage
+ 
+
+\input{technical.tex}
+
+
+
+\end{document}

@@ -1,0 +1,76 @@
+\section{Discrete Signals}
+\subsection{Aliasing}
+\begin{enumerate}
+  \item The set of signals which would be aliased to 10KHz with a sampling frequency of 8KHz is given by $\sizeof{f - 10} = 8k$ for some $k\in N$.
+  All such signals would be aliased to $\textbf{2KHz}$
+
+  \item We can prevent the aliasing by passing the analog signal through an anti-aliasing filter of bandwidth 4KHz (Nyquist frequency).
+  prior to sampling
+\end{enumerate}
+
+\subsection{Stereo Hearing}
+When playing both channels in sync we hear the original recording.
+When shifting the left track 2 ms ahead the sound appears to travel from the right ear to the left and vise versa when shifting the right track.
+This occurs because when a sound source is moving relative to our ears there is a slight phase shift between the signal received in each ear.
+In this case we emulate the phase shift by moving one track 2ms ahead.
+
+
+\subsection{$\mathcal{Z}$ Transform}
+
+\subsubsection{Convolution Property}
+\begin{equation}
+  \begin{aligned}
+    \mathcal{Z}\left( x_1[n] * x_2[n] \right) &= \mathcal{Z}\left( \sum_{m \in \mathbb{Z}} x_1[m] \cdot x_2[n-m] \right) \\
+    &= \sum_{n \in \mathbb{Z}} z^{-n} \sum_{m \in \mathbb{Z}} x_1[m] \cdot x_2[n-m] \\
+    &= \sum_{m \in \mathbb{Z}} \sum_{n \in \mathbb{Z}} x_1[m] \cdot x_2[n-m] z^{-(n-m)} z^{-m} \\
+    &= \sum_{m \in \mathbb{Z}} x_1[m] z^{-m} \sum_{n \in \mathbb{Z}} x_2[n-m] z^{-(n-m)} \\
+    &= \sum_{m \in \mathbb{Z}} x_1[m] z^{-m} \sum_{n \in \mathbb{Z}} x_2[n] z^{-n} \\
+    &= X_1[z] \cdot X_2[z]
+  \end{aligned}
+\end{equation}
+
+\subsubsection{Time Domain Scaling}
+Assuming our signal is unilateral:
+\begin{equation}
+  \begin{aligned}
+    \mathcal{Z}\left(a^n x[n] \right) &= \sum_{n \in \mathbb{N}} a^n x[n] z^{-n} \\
+    &= \sum_{n \in \mathbb{N}} x[n] \left(\frac{z}{a}\right)^{-n} \\
+    &= X\left( \frac{z}{a} \right)
+  \end{aligned}
+\end{equation}
+
+
+\subsection{DTFS}
+\begin{enumerate}
+  \item We compute the period of the discrete sinusoid
+  \begin{equation}
+    \begin{aligned}
+      N_0 &= \min_{m \in \mathbb{N} \; s.t. m\left(\frac{2\pi}{0.1\pi}\right) \in \mathbb{N}} m\left(\frac{2\pi}{0.1\pi}\right)  \\
+      &= 20
+    \end{aligned}
+  \end{equation}
+
+  \item The sinusoid can easily be expressed as a sum of harmonic exponentials but for completeness we derive its DFTS step by step. Let us chose the 0-centered interval of length $N_0$ $S = \{-9, -8, ..., 10\}$.
+  We compute the DTFS coefficients:
+  \begin{equation}
+    \begin{aligned}
+      \mathcal{D}_r &= \frac{1}{20} \sum_{n \in S} \sin\left( 0.1\pi n \right) e^{-0.1 \pi i r n} \\
+      &= \frac{1}{20} \sum_{n \in S} \frac{1}{2i} \left( e^{0.1\pi n i} - e^{-0.1\pi n i} \right) e^{-0.1 \pi i r n} \\
+      &= \frac{1}{40i} \sum_{n \in S} \left( e^{0.1\pi n i \left(1-r\right)} - e^{-0.1\pi n i \left(1 + r\right)} \right) \\
+      &= \frac{1}{40i} \left(\sum_{n \in S} e^{0.1\pi n i \left(1-r\right)} - \sum_{n \in S} e^{-0.1\pi n i \left(1 + r\right)} \right) \\
+    \end{aligned}
+  \end{equation}
+  Now noticing that each sum is a geometric progression of an harmonic exponential across its period we have:
+  \begin{equation}
+    \mathcal{D}_r = 
+    \begin{cases}
+      \frac{1}{2i} &  r=1  \\
+      -\frac{1}{2i} &   r=-1 \\
+      0 & \text{otherwise}
+   \end{cases}
+  \end{equation}
+  Plugging this into the DTFS we get
+  \begin{equation}
+    x[n] = \frac{1}{2i} \left( e^{0.1 \pi i n} +  e^{-0.1 \pi i n} \right)
+  \end{equation}
+\end{enumerate}
